@@ -20,10 +20,9 @@ OVERQHALFEEN
 TWEEDRIEVIER
 VIJFZESZEVEN
 ACHTNEGENELF
-TIENTWAALFRT  
-`;
-
-//
+TIENTWAALFRT`
+  .split("\n")
+  .filter((row) => row.length > 0);
 
 // numbers first
 const EEN = [7, 8, 9];
@@ -92,7 +91,7 @@ const HALF = [89, 90, 91, 92];
 const SEPERATOR = [44];
 const HOURS = [69, 70, 71];
 
-const wordMap = {
+const wordMap: Record<number, number[]> = {
   0: IT_IS,
   1: [...IT_IS, ...EEN, ...OVER],
   2: [...IT_IS, ...TWEE, ...OVER],
@@ -111,7 +110,7 @@ const wordMap = {
   15: [...IT_IS, ...KWART, ...OVER],
   16: [...IT_IS, ...ZES, ...SEPERATOR, ...TIEN, ...OVER],
   17: [...IT_IS, ...ZEVEN, ...SEPERATOR, ...TIEN, ...OVER],
-  18: [...IT_IS, ...ACHT, ...SEPERATOR, ...TIEN, ...OVER],
+  18: [...IT_IS, ...ACHT, ...TIEN, ...OVER],
   19: [...IT_IS, ...NEGEN, ...SEPERATOR, ...TIEN, ...OVER],
   20: [...IT_IS, ...TIEN, ...VOOR, ...HALF],
   21: [...IT_IS, ...NEGEN, ...VOOR, ...HALF],
@@ -140,7 +139,7 @@ const wordMap = {
   44: [...IT_IS, ...ZES, ...SEPERATOR, ...TIEN, ...VOOR],
   45: [...IT_IS, ...KWART, ...VOOR],
   46: [...IT_IS, ...VEERTIEN, ...VOOR],
-  47: [...IT_IS, ...DERTIEN, ...VOOR],
+  47: [...IT_IS, ...DERTIEN, ...SEPERATOR, ...VOOR],
   48: [...IT_IS, ...TWAALF, ...VOOR],
   49: [...IT_IS, ...ELF, ...VOOR],
   50: [...IT_IS, ...TIEN, ...VOOR],
@@ -157,21 +156,27 @@ const wordMap = {
 
 const gridSize = 40;
 
+const getNextHour = (minutes: number, hours: number): number => {
+  if (minutes <= 20) {
+    return hours;
+  }
+  const nextHour = hours + 1;
+  return nextHour === 12 ? 0 : nextHour;
+};
+
 const getLeds = (date: Date): number[] => {
   const hours = date.getHours() % 12;
   const minutes = date.getMinutes();
-
   if (minutes === 0) {
     return [...wordMap[minutes], ...firstNumbersMap[hours], ...HOURS];
   }
-  const countHours = minutes < 20 ? hours : hours + 1;
 
-  return [...wordMap[minutes], ...secondNumbersMap[countHours]];
+  const nextHour = getNextHour(minutes, hours);
+  return [...wordMap[minutes], ...secondNumbersMap[nextHour]];
 };
 
 function App() {
   // time handling
-  const gridList = grid.split("\n").filter((e) => e.length > 0);
   const [time, setTime] = useState(new Date());
   const currentActiveLeds = getLeds(time);
 
@@ -199,7 +204,7 @@ function App() {
   // debug
   const [isDebug, setDebug] = useState<boolean>(false);
   const onToggleDebug = (): void => setDebug(!isDebug);
-
+  // console.log(grid);
   return (
     <>
       <button onClick={onToggleDebug}>debug</button>
@@ -216,8 +221,8 @@ function App() {
         value={time.getMinutes()}
         onChange={onChangeTime("minutes")}
       />
-      <ul style={{ width: 12 * gridSize, overflow: "hidden" }}>
-        {gridList.map((row, rowIndex) =>
+      <ul style={{ width: 12 * gridSize, overflow: "hidden", fontSize: 26 }}>
+        {grid.map((row, rowIndex) =>
           [...row].map((column, columIndex) => {
             const index = columIndex + rowIndex * 12;
 
@@ -236,7 +241,6 @@ function App() {
                 key={index}
               >
                 {column}
-
                 {isDebug && (
                   <span
                     style={{ position: "absolute", color: "red", fontSize: 10 }}
