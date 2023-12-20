@@ -17,6 +17,9 @@ VIJFZESZEVEN
 ACHTNEGENELF
 TIENTWAALFRT`);
 
+export const gridRows = 12;
+export const gridColumns = 12;
+
 // top numbers
 const TOP_ONE = [7, 8, 9];
 const TOP_TWO = [20, 21, 22, 23];
@@ -148,6 +151,3 @@ export const wordMap: WordMap = {
   58: [...IT_IS, ...TOP_TWO, ...BEFORE],
   59: [...IT_IS, ...TOP_ONE, ...BEFORE],
 };
-
-export const gridRows = 12;
-export const gridColumns = 12;

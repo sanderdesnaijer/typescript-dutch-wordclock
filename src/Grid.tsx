@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 
 export const GridColumn: React.FC<{
-  value: number;
+  index: number;
   isDebug: boolean;
   isActive: boolean;
   displayValue: string;
-}> = ({ value, isDebug, isActive, displayValue }) => {
+}> = ({ index, isDebug, isActive, displayValue }) => {
   return (
     <div
       className="clock-column"
@@ -24,7 +24,7 @@ export const GridColumn: React.FC<{
             top: 0,
           }}
         >
-          {value}
+          {index}
         </span>
       )}
     </div>
@@ -35,10 +35,10 @@ export const Grid: React.FC<{
   rowCount: number;
   columnCount: number;
   onRender: ({
-    value,
-    renderIndex,
+    index,
+    renderIndex, // index as displayed on screen
   }: {
-    value: number;
+    index: number;
     renderIndex: number;
   }) => React.ReactElement;
 }> = ({ rowCount = 12, columnCount = 12, onRender }) => {
@@ -66,7 +66,7 @@ export const Grid: React.FC<{
         <div className="clock-row" key={`row-${rowIndex}`}>
           {row.map((column, columnIndex) => {
             const renderIndex = columnIndex + rowIndex * columnCount;
-            return onRender({ renderIndex, value: column });
+            return onRender({ renderIndex, index: column });
           })}
         </div>
       ))}

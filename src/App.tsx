@@ -74,11 +74,11 @@ function App() {
       <Grid
         columnCount={gridColumns}
         rowCount={gridRows}
-        onRender={({ value, renderIndex }) => (
+        onRender={({ index, renderIndex }) => (
           <GridColumn
-            key={value}
-            isActive={currentActiveLeds.indexOf(value) !== -1}
-            value={value}
+            key={index}
+            isActive={currentActiveLeds.indexOf(index) !== -1}
+            index={index}
             displayValue={wordGrid[renderIndex]}
             isDebug={isDebug}
           />
