@@ -2,16 +2,8 @@ import { useState } from "react";
 import "./App.css";
 
 function processString(inputString: string): string[] {
-  // Remove "\n" from the string
-  const cleanedString = inputString.replace(/\n/g, "");
-
-  // Split the string into an array of letters
-  const lettersArray = cleanedString.split("");
-
-  // Remove empty strings from the array
-  const resultArray = lettersArray.filter((letter) => letter !== "");
-
-  return resultArray;
+  const cleanedString = inputString.replace(/\n/g, "").split("");
+  return cleanedString.filter((letter) => letter !== "");
 }
 const wordGrid = processString(`
 HETAISKEENLM
@@ -28,136 +20,135 @@ ACHTNEGENELF
 TIENTWAALFRT`);
 
 // top numbers
-const EEN = [7, 8, 9];
-const TWEE = [20, 21, 22, 23];
-const DRIE = [16, 17, 18, 19];
-const VIER = [12, 13, 14, 15];
-const VIJF = [24, 25, 26, 27];
-const ZES = [28, 29, 30];
-const ZEVEN = [31, 32, 33, 34, 35];
-const ACHT = [48, 49, 50, 51];
-const NEGEN = [40, 41, 42, 43, 44];
-const TIEN = [56, 57, 58, 59];
-const ELF = [64, 65, 66];
-const TWAALF = [73, 74, 75, 76, 77, 78];
-const DERTIEN = [45, 46, 47, ...TIEN];
-const VEERTIEN = [52, 53, 54, 55, ...TIEN];
+const TOP_ONE = [7, 8, 9];
+const TOP_TWO = [20, 21, 22, 23];
+const TOP_THREE = [16, 17, 18, 19];
+const TOP_FOUR = [12, 13, 14, 15];
+const TOP_FIVE = [24, 25, 26, 27];
+const TOP_SIX = [28, 29, 30];
+const TOP_SEVEN = [31, 32, 33, 34, 35];
+const TOP_EIGHT = [48, 49, 50, 51];
+const TOP_NINE = [40, 41, 42, 43, 44];
+const TOP_TEN = [56, 57, 58, 59];
+const TOP_ELEVEN = [64, 65, 66];
+const TOP_TWELVE = [73, 74, 75, 76, 77, 78];
+const TOP_THIRTEEN = [45, 46, 47, ...TOP_TEN];
+const TOP_FOURTEEN = [52, 53, 54, 55, ...TOP_TEN];
 const topNumbers = [
-  TWAALF,
-  EEN,
-  TWEE,
-  DRIE,
-  VIER,
-  VIJF,
-  ZES,
-  ZEVEN,
-  ACHT,
-  NEGEN,
-  TIEN,
-  ELF,
+  TOP_TWELVE,
+  TOP_ONE,
+  TOP_TWO,
+  TOP_THREE,
+  TOP_FOUR,
+  TOP_FIVE,
+  TOP_SIX,
+  TOP_SEVEN,
+  TOP_EIGHT,
+  TOP_NINE,
+  TOP_TEN,
+  TOP_ELEVEN,
 ];
 
 // bottom nummbers
-const SECOND_EEN = [84, 85, 86];
-const SECOND_TWEE = [96, 97, 98, 99];
-const SECOND_DRIE = [100, 101, 102, 103];
-const SECOND_VIER = [104, 105, 106, 107];
-const SECOND_VIJF = [116, 117, 118, 119];
-const SECOND_ZES = [113, 114, 115];
-const SECOND_ZEVEN = [108, 109, 110, 111, 112];
-const SECOND_ACHT = [120, 121, 122, 123];
-const SECOND_NEGEN = [124, 125, 126, 127, 128];
-const SECOND_TIEN = [140, 141, 142, 143];
-const SECOND_ELF = [129, 130, 131];
-const SECOND_TWAALF = [134, 135, 136, 137, 138, 139];
+const BOTTOM_ONE = [84, 85, 86];
+const BOTTOM_TWO = [96, 97, 98, 99];
+const BOTTOM_THREE = [100, 101, 102, 103];
+const BOTTOM_FOUR = [104, 105, 106, 107];
+const BOTTOM_VIVE = [116, 117, 118, 119];
+const BOTTOM_SIX = [113, 114, 115];
+const BOTTOM_SEVEN = [108, 109, 110, 111, 112];
+const BOTTOM_EIGHT = [120, 121, 122, 123];
+const BOTTOM_NINE = [124, 125, 126, 127, 128];
+const BOTTOM_TEN = [140, 141, 142, 143];
+const BOTTOM_ELEVEN = [129, 130, 131];
+const BOTTOM_TWELVE = [134, 135, 136, 137, 138, 139];
 
 const bottomNumbers = [
-  SECOND_TWAALF,
-  SECOND_EEN,
-  SECOND_TWEE,
-  SECOND_DRIE,
-  SECOND_VIER,
-  SECOND_VIJF,
-  SECOND_ZES,
-  SECOND_ZEVEN,
-  SECOND_ACHT,
-  SECOND_NEGEN,
-  SECOND_TIEN,
-  SECOND_ELF,
+  BOTTOM_TWELVE,
+  BOTTOM_ONE,
+  BOTTOM_TWO,
+  BOTTOM_THREE,
+  BOTTOM_FOUR,
+  BOTTOM_VIVE,
+  BOTTOM_SIX,
+  BOTTOM_SEVEN,
+  BOTTOM_EIGHT,
+  BOTTOM_NINE,
+  BOTTOM_TEN,
+  BOTTOM_ELEVEN,
 ];
 
 const IT_IS = [0, 1, 2, 4, 5];
 const OVER = [92, 93, 94, 95];
-const VOOR = [80, 81, 82, 83];
-const KWART = [67, 68, 69, 70, 71];
+const BEFORE = [80, 81, 82, 83];
+const QUARTER = [67, 68, 69, 70, 71];
 const HALF = [87, 88, 89, 90];
 const SEPERATOR = [39];
 const HOURS = [60, 61, 62];
 
 const wordMap: Record<number, number[]> = {
   0: IT_IS,
-  1: [...IT_IS, ...EEN, ...OVER],
-  2: [...IT_IS, ...TWEE, ...OVER],
-  3: [...IT_IS, ...DRIE, ...OVER],
-  4: [...IT_IS, ...VIER, ...OVER],
-  5: [...IT_IS, ...VIJF, ...OVER],
-  6: [...IT_IS, ...ZES, ...OVER],
-  7: [...IT_IS, ...ZEVEN, ...OVER],
-  8: [...IT_IS, ...ACHT, ...OVER],
-  9: [...IT_IS, ...NEGEN, ...OVER],
-  10: [...IT_IS, ...TIEN, ...OVER],
-  11: [...IT_IS, ...ELF, ...OVER],
-  12: [...IT_IS, ...TWAALF, ...OVER],
-  13: [...IT_IS, ...DERTIEN, ...SEPERATOR, ...OVER],
-  14: [...IT_IS, ...VEERTIEN, ...OVER],
-  15: [...IT_IS, ...KWART, ...OVER],
-  16: [...IT_IS, ...ZES, ...SEPERATOR, ...TIEN, ...OVER],
-  17: [...IT_IS, ...ZEVEN, ...SEPERATOR, ...TIEN, ...OVER],
-  18: [...IT_IS, ...ACHT, ...TIEN, ...OVER],
-  19: [...IT_IS, ...NEGEN, ...SEPERATOR, ...TIEN, ...OVER],
-  20: [...IT_IS, ...TIEN, ...VOOR, ...HALF],
-  21: [...IT_IS, ...NEGEN, ...VOOR, ...HALF],
-  22: [...IT_IS, ...ACHT, ...VOOR, ...HALF],
-  23: [...IT_IS, ...ZEVEN, ...VOOR, ...HALF],
-  24: [...IT_IS, ...ZES, ...VOOR, ...HALF],
-  25: [...IT_IS, ...VIJF, ...VOOR, ...HALF],
-  26: [...IT_IS, ...VIER, ...VOOR, ...HALF],
-  27: [...IT_IS, ...DRIE, ...VOOR, ...HALF],
-  28: [...IT_IS, ...TWEE, ...VOOR, ...HALF],
-  29: [...IT_IS, ...EEN, ...VOOR, ...HALF],
+  1: [...IT_IS, ...TOP_ONE, ...OVER],
+  2: [...IT_IS, ...TOP_TWO, ...OVER],
+  3: [...IT_IS, ...TOP_THREE, ...OVER],
+  4: [...IT_IS, ...TOP_FOUR, ...OVER],
+  5: [...IT_IS, ...TOP_FIVE, ...OVER],
+  6: [...IT_IS, ...TOP_SIX, ...OVER],
+  7: [...IT_IS, ...TOP_SEVEN, ...OVER],
+  8: [...IT_IS, ...TOP_EIGHT, ...OVER],
+  9: [...IT_IS, ...TOP_NINE, ...OVER],
+  10: [...IT_IS, ...TOP_TEN, ...OVER],
+  11: [...IT_IS, ...TOP_ELEVEN, ...OVER],
+  12: [...IT_IS, ...TOP_TWELVE, ...OVER],
+  13: [...IT_IS, ...TOP_THIRTEEN, ...SEPERATOR, ...OVER],
+  14: [...IT_IS, ...TOP_FOURTEEN, ...OVER],
+  15: [...IT_IS, ...QUARTER, ...OVER],
+  16: [...IT_IS, ...TOP_SIX, ...SEPERATOR, ...TOP_TEN, ...OVER],
+  17: [...IT_IS, ...TOP_SEVEN, ...SEPERATOR, ...TOP_TEN, ...OVER],
+  18: [...IT_IS, ...TOP_EIGHT, ...TOP_TEN, ...OVER],
+  19: [...IT_IS, ...TOP_NINE, ...SEPERATOR, ...TOP_TEN, ...OVER],
+  20: [...IT_IS, ...TOP_TEN, ...BEFORE, ...HALF],
+  21: [...IT_IS, ...TOP_NINE, ...BEFORE, ...HALF],
+  22: [...IT_IS, ...TOP_EIGHT, ...BEFORE, ...HALF],
+  23: [...IT_IS, ...TOP_SEVEN, ...BEFORE, ...HALF],
+  24: [...IT_IS, ...TOP_SIX, ...BEFORE, ...HALF],
+  25: [...IT_IS, ...TOP_FIVE, ...BEFORE, ...HALF],
+  26: [...IT_IS, ...TOP_FOUR, ...BEFORE, ...HALF],
+  27: [...IT_IS, ...TOP_THREE, ...BEFORE, ...HALF],
+  28: [...IT_IS, ...TOP_TWO, ...BEFORE, ...HALF],
+  29: [...IT_IS, ...TOP_ONE, ...BEFORE, ...HALF],
   30: [...IT_IS, ...HALF],
-  31: [...IT_IS, ...EEN, ...OVER, ...HALF],
-  32: [...IT_IS, ...TWEE, ...OVER, ...HALF],
-  33: [...IT_IS, ...DRIE, ...OVER, ...HALF],
-  34: [...IT_IS, ...VIER, ...OVER, ...HALF],
-  35: [...IT_IS, ...VIJF, ...OVER, ...HALF],
-  36: [...IT_IS, ...ZES, ...OVER, ...HALF],
-  37: [...IT_IS, ...ZEVEN, ...OVER, ...HALF],
-  38: [...IT_IS, ...ACHT, ...OVER, ...HALF],
-  39: [...IT_IS, ...NEGEN, ...OVER, ...HALF],
-  40: [...IT_IS, ...TIEN, ...OVER, ...HALF],
-  41: [...IT_IS, ...NEGEN, ...SEPERATOR, ...TIEN, ...VOOR],
-  42: [...IT_IS, ...ACHT, ...TIEN, ...VOOR],
-  43: [...IT_IS, ...ZEVEN, ...SEPERATOR, ...TIEN, ...VOOR],
-  44: [...IT_IS, ...ZES, ...SEPERATOR, ...TIEN, ...VOOR],
-  45: [...IT_IS, ...KWART, ...VOOR],
-  46: [...IT_IS, ...VEERTIEN, ...VOOR],
-  47: [...IT_IS, ...DERTIEN, ...SEPERATOR, ...VOOR],
-  48: [...IT_IS, ...TWAALF, ...VOOR],
-  49: [...IT_IS, ...ELF, ...VOOR],
-  50: [...IT_IS, ...TIEN, ...VOOR],
-  51: [...IT_IS, ...NEGEN, ...VOOR],
-  52: [...IT_IS, ...ACHT, ...VOOR],
-  53: [...IT_IS, ...ZEVEN, ...VOOR],
-  54: [...IT_IS, ...ZES, ...VOOR],
-  55: [...IT_IS, ...VIJF, ...VOOR],
-  56: [...IT_IS, ...VIER, ...VOOR],
-  57: [...IT_IS, ...DRIE, ...VOOR],
-  58: [...IT_IS, ...TWEE, ...VOOR],
-  59: [...IT_IS, ...EEN, ...VOOR],
+  31: [...IT_IS, ...TOP_ONE, ...OVER, ...HALF],
+  32: [...IT_IS, ...TOP_TWO, ...OVER, ...HALF],
+  33: [...IT_IS, ...TOP_THREE, ...OVER, ...HALF],
+  34: [...IT_IS, ...TOP_FOUR, ...OVER, ...HALF],
+  35: [...IT_IS, ...TOP_FIVE, ...OVER, ...HALF],
+  36: [...IT_IS, ...TOP_SIX, ...OVER, ...HALF],
+  37: [...IT_IS, ...TOP_SEVEN, ...OVER, ...HALF],
+  38: [...IT_IS, ...TOP_EIGHT, ...OVER, ...HALF],
+  39: [...IT_IS, ...TOP_NINE, ...OVER, ...HALF],
+  40: [...IT_IS, ...TOP_TEN, ...OVER, ...HALF],
+  41: [...IT_IS, ...TOP_NINE, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
+  42: [...IT_IS, ...TOP_EIGHT, ...TOP_TEN, ...BEFORE],
+  43: [...IT_IS, ...TOP_SEVEN, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
+  44: [...IT_IS, ...TOP_SIX, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
+  45: [...IT_IS, ...QUARTER, ...BEFORE],
+  46: [...IT_IS, ...TOP_FOURTEEN, ...BEFORE],
+  47: [...IT_IS, ...TOP_THIRTEEN, ...SEPERATOR, ...BEFORE],
+  48: [...IT_IS, ...TOP_TWELVE, ...BEFORE],
+  49: [...IT_IS, ...TOP_ELEVEN, ...BEFORE],
+  50: [...IT_IS, ...TOP_TEN, ...BEFORE],
+  51: [...IT_IS, ...TOP_NINE, ...BEFORE],
+  52: [...IT_IS, ...TOP_EIGHT, ...BEFORE],
+  53: [...IT_IS, ...TOP_SEVEN, ...BEFORE],
+  54: [...IT_IS, ...TOP_SIX, ...BEFORE],
+  55: [...IT_IS, ...TOP_FIVE, ...BEFORE],
+  56: [...IT_IS, ...TOP_FOUR, ...BEFORE],
+  57: [...IT_IS, ...TOP_THREE, ...BEFORE],
+  58: [...IT_IS, ...TOP_TWO, ...BEFORE],
+  59: [...IT_IS, ...TOP_ONE, ...BEFORE],
 };
 
-const gridSize = 40;
 const gridRows = 12;
 const gridColumns = 12;
 
@@ -197,11 +188,14 @@ function App() {
   // time handling
   const [time, setTime] = useState(new Date());
   const currentActiveLeds = getLeds(time);
-  const onAdvanceInTime = () => {
-    const newDate = new Date();
-    newDate.setHours(time.getHours(), time.getMinutes() + 1);
-    setTime(() => newDate);
-  };
+  const onAdvanceInTime =
+    (direction: "forwards" | "backwards" = "forwards") =>
+    () => {
+      const newDate = new Date();
+      const newMinutes = direction === "forwards" ? 1 : -1;
+      newDate.setHours(time.getHours(), time.getMinutes() + newMinutes);
+      setTime(() => newDate);
+    };
 
   const onChangeTime =
     (timeType = "minutes" || "hours") =>
@@ -234,7 +228,10 @@ function App() {
           alignItems: "center",
         }}
       >
-        <button style={{ height: "auto" }} onClick={onAdvanceInTime}>
+        <button
+          style={{ height: "auto" }}
+          onClick={onAdvanceInTime("backwards")}
+        >
           <span>{`<`}</span>
         </button>
         <input
@@ -247,7 +244,7 @@ function App() {
           value={time.getMinutes()}
           onChange={onChangeTime("minutes")}
         />
-        <button onClick={onAdvanceInTime}>
+        <button onClick={onAdvanceInTime("forwards")}>
           <span>{`>`}</span>
         </button>
       </div>
