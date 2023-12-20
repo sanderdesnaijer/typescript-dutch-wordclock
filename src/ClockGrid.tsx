@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 
-export const GridColumn: React.FC<{
+export const ClockLetter: React.FC<{
   index: number;
   isDebug: boolean;
   isActive: boolean;
-  displayValue: string;
-}> = ({ index, isDebug, isActive, displayValue }) => {
+  children?: React.ReactNode;
+}> = ({ index, isDebug, isActive, children }) => {
   return (
     <div
       className="clock-column"
@@ -14,7 +14,7 @@ export const GridColumn: React.FC<{
         position: "relative",
       }}
     >
-      <p>{displayValue}</p>
+      <p>{children}</p>
       {isDebug && (
         <span
           style={{
@@ -31,7 +31,7 @@ export const GridColumn: React.FC<{
   );
 };
 
-export const Grid: React.FC<{
+export const ClockGrid: React.FC<{
   rowCount: number;
   columnCount: number;
   onRender: ({

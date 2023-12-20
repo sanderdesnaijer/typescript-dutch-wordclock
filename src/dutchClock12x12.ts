@@ -85,10 +85,10 @@ const BEFORE = [80, 81, 82, 83];
 const QUARTER = [67, 68, 69, 70, 71];
 const HALF = [87, 88, 89, 90];
 const SEPERATOR = [39];
+
 export const HOURS = [60, 61, 62];
 
 export type WordMap = Record<number, number[]>;
-
 export const wordMap: WordMap = {
   0: IT_IS,
   1: [...IT_IS, ...TOP_ONE, ...OVER],

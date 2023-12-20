@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TimeButton } from "./TimeButton";
 import { TimeInput } from "./TimeInput";
-import { Grid, GridColumn } from "./Grid";
+import { ClockGrid, ClockLetter } from "./ClockGrid";
 import "./App.css";
 
 import {
@@ -71,19 +71,20 @@ function App() {
           onChangeTime={setTime}
         />
       </div>
-      <Grid
+      <ClockGrid
         columnCount={gridColumns}
         rowCount={gridRows}
         onRender={({ index, renderIndex }) => (
-          <GridColumn
+          <ClockLetter
             key={index}
             isActive={currentActiveLeds.indexOf(index) !== -1}
             index={index}
-            displayValue={wordGrid[renderIndex]}
             isDebug={isDebug}
-          />
+          >
+            {wordGrid[renderIndex]}
+          </ClockLetter>
         )}
-      ></Grid>
+      ></ClockGrid>
     </>
   );
 }
