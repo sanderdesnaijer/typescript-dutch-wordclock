@@ -1,14 +1,19 @@
-// TODO;
-// check all combinations
-// 18
-// 0:35
-// find nice font
-
 import { useState } from "react";
-
 import "./App.css";
 
-const grid = `
+function processString(inputString: string): string[] {
+  // Remove "\n" from the string
+  const cleanedString = inputString.replace(/\n/g, "");
+
+  // Split the string into an array of letters
+  const lettersArray = cleanedString.split("");
+
+  // Remove empty strings from the array
+  const resultArray = lettersArray.filter((letter) => letter !== "");
+
+  return resultArray;
+}
+const wordGrid = processString(`
 HETAISKEENLM
 TWEEDRIEVIER
 VIJFZESZEVEN
@@ -20,26 +25,24 @@ OVERQHALFEEN
 TWEEDRIEVIER
 VIJFZESZEVEN
 ACHTNEGENELF
-TIENTWAALFRT`
-  .split("\n")
-  .filter((row) => row.length > 0);
+TIENTWAALFRT`);
 
-// numbers first
+// top numbers
 const EEN = [7, 8, 9];
-const TWEE = [12, 13, 14, 15];
+const TWEE = [20, 21, 22, 23];
 const DRIE = [16, 17, 18, 19];
-const VIER = [20, 21, 22, 23];
+const VIER = [12, 13, 14, 15];
 const VIJF = [24, 25, 26, 27];
 const ZES = [28, 29, 30];
 const ZEVEN = [31, 32, 33, 34, 35];
 const ACHT = [48, 49, 50, 51];
-const NEGEN = [39, 40, 41, 42, 43];
+const NEGEN = [40, 41, 42, 43, 44];
 const TIEN = [56, 57, 58, 59];
-const ELF = [65, 66, 67];
+const ELF = [64, 65, 66];
 const TWAALF = [73, 74, 75, 76, 77, 78];
-const DERTIEN = [36, 37, 38, ...TIEN];
+const DERTIEN = [45, 46, 47, ...TIEN];
 const VEERTIEN = [52, 53, 54, 55, ...TIEN];
-const firstNumbersMap = [
+const topNumbers = [
   TWAALF,
   EEN,
   TWEE,
@@ -54,21 +57,21 @@ const firstNumbersMap = [
   ELF,
 ];
 
-// numbers second
-const SECOND_EEN = [93, 94, 95];
+// bottom nummbers
+const SECOND_EEN = [84, 85, 86];
 const SECOND_TWEE = [96, 97, 98, 99];
 const SECOND_DRIE = [100, 101, 102, 103];
 const SECOND_VIER = [104, 105, 106, 107];
-const SECOND_VIJF = [108, 109, 110, 111];
-const SECOND_ZES = [112, 113, 114];
-const SECOND_ZEVEN = [115, 116, 117, 118, 119];
+const SECOND_VIJF = [116, 117, 118, 119];
+const SECOND_ZES = [113, 114, 115];
+const SECOND_ZEVEN = [108, 109, 110, 111, 112];
 const SECOND_ACHT = [120, 121, 122, 123];
 const SECOND_NEGEN = [124, 125, 126, 127, 128];
-const SECOND_TIEN = [132, 133, 134, 135];
+const SECOND_TIEN = [140, 141, 142, 143];
 const SECOND_ELF = [129, 130, 131];
-const SECOND_TWAALF = [136, 137, 138, 139, 140, 141];
+const SECOND_TWAALF = [134, 135, 136, 137, 138, 139];
 
-const secondNumbersMap = [
+const bottomNumbers = [
   SECOND_TWAALF,
   SECOND_EEN,
   SECOND_TWEE,
@@ -84,12 +87,12 @@ const secondNumbersMap = [
 ];
 
 const IT_IS = [0, 1, 2, 4, 5];
-const OVER = [84, 85, 86, 87];
+const OVER = [92, 93, 94, 95];
 const VOOR = [80, 81, 82, 83];
-const KWART = [60, 61, 62, 63, 64];
-const HALF = [89, 90, 91, 92];
-const SEPERATOR = [44];
-const HOURS = [69, 70, 71];
+const KWART = [67, 68, 69, 70, 71];
+const HALF = [87, 88, 89, 90];
+const SEPERATOR = [39];
+const HOURS = [60, 61, 62];
 
 const wordMap: Record<number, number[]> = {
   0: IT_IS,
@@ -155,6 +158,21 @@ const wordMap: Record<number, number[]> = {
 };
 
 const gridSize = 40;
+const gridRows = 12;
+const gridColumns = 12;
+
+const grid = Array.from({ length: gridRows }).reduce(
+  (list: number[][], _, rowIndex: number) => {
+    const columns = Array.from({ length: gridColumns }).map(
+      (_, columnIndex) => columnIndex + rowIndex * gridColumns
+    );
+    // reverse uneven columns so it mimics the led wire direction
+    const orderedColumns = rowIndex % 2 === 1 ? columns.reverse() : columns;
+    list.push(orderedColumns);
+    return list;
+  },
+  []
+);
 
 const getNextHour = (minutes: number, hours: number): number => {
   if (minutes <= 20) {
@@ -168,18 +186,17 @@ const getLeds = (date: Date): number[] => {
   const hours = date.getHours() % 12;
   const minutes = date.getMinutes();
   if (minutes === 0) {
-    return [...wordMap[minutes], ...firstNumbersMap[hours], ...HOURS];
+    return [...wordMap[minutes], ...topNumbers[hours], ...HOURS];
   }
 
   const nextHour = getNextHour(minutes, hours);
-  return [...wordMap[minutes], ...secondNumbersMap[nextHour]];
+  return [...wordMap[minutes], ...bottomNumbers[nextHour]];
 };
 
 function App() {
   // time handling
   const [time, setTime] = useState(new Date());
   const currentActiveLeds = getLeds(time);
-
   const onAdvanceInTime = () => {
     const newDate = new Date();
     newDate.setHours(time.getHours(), time.getMinutes() + 1);
@@ -204,55 +221,72 @@ function App() {
   // debug
   const [isDebug, setDebug] = useState<boolean>(false);
   const onToggleDebug = (): void => setDebug(!isDebug);
-  // console.log(grid);
+
   return (
     <>
-      <button onClick={onToggleDebug}>debug</button>
-      <button onClick={onAdvanceInTime}>
-        <span>{`>`}</span>
+      <button style={{ height: "auto" }} onClick={onToggleDebug}>
+        debug
       </button>
-      <input
-        style={{ width: 40 }}
-        value={time.getHours()}
-        onChange={onChangeTime("hours")}
-      />
-      <input
-        style={{ width: 40 }}
-        value={time.getMinutes()}
-        onChange={onChangeTime("minutes")}
-      />
-      <ul style={{ width: 12 * gridSize, overflow: "hidden", fontSize: 26 }}>
-        {grid.map((row, rowIndex) =>
-          [...row].map((column, columIndex) => {
-            const index = columIndex + rowIndex * 12;
-
-            return (
-              <li
-                style={{
-                  listStyle: "none",
-                  float: "left",
-                  width: gridSize,
-                  height: gridSize,
-                  color:
-                    currentActiveLeds.indexOf(index) !== -1
-                      ? "#FFF"
-                      : "rgba(255,255,255,0.1)",
-                }}
-                key={index}
-              >
-                {column}
-                {isDebug && (
-                  <span
-                    style={{ position: "absolute", color: "red", fontSize: 10 }}
-                  >
-                    {index}
-                  </span>
-                )}
-              </li>
-            );
-          })
-        )}
-      </ul>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <button style={{ height: "auto" }} onClick={onAdvanceInTime}>
+          <span>{`<`}</span>
+        </button>
+        <input
+          style={{ width: 40, padding: "4px 8px" }}
+          value={time.getHours()}
+          onChange={onChangeTime("hours")}
+        />
+        <input
+          style={{ width: 40, padding: "4px 8px" }}
+          value={time.getMinutes()}
+          onChange={onChangeTime("minutes")}
+        />
+        <button onClick={onAdvanceInTime}>
+          <span>{`>`}</span>
+        </button>
+      </div>
+      <div className="clock">
+        {grid.map((row, rowIndex) => (
+          <div className="clock-row" key={`row-${rowIndex}`}>
+            {row.map((column, columnIndex) => {
+              const renderIndex = columnIndex + rowIndex * gridColumns;
+              return (
+                <div
+                  className="clock-column"
+                  key={column}
+                  style={{
+                    color:
+                      currentActiveLeds.indexOf(column) !== -1
+                        ? "#FFF"
+                        : "rgba(255,255,255,0.1)",
+                    position: "relative",
+                  }}
+                >
+                  <p>{wordGrid[renderIndex]}</p>
+                  {isDebug && (
+                    <span
+                      style={{
+                        position: "absolute",
+                        color: "red",
+                        fontSize: 10,
+                        top: 0,
+                      }}
+                    >
+                      {column}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </>
   );
 }
