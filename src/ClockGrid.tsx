@@ -14,7 +14,7 @@ export const ClockLetter: React.FC<{
         position: "relative",
       }}
     >
-      <p>{children}</p>
+      <span>{children}</span>
       {isDebug && (
         <span
           style={{
@@ -22,6 +22,8 @@ export const ClockLetter: React.FC<{
             color: "red",
             fontSize: 10,
             top: 0,
+            left: 0,
+            right: 0,
           }}
         >
           {index}

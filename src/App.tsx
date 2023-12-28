@@ -16,7 +16,7 @@ import {
 } from "./dutchClock12x12";
 
 const getNextHour = (minutes: number, hours: number): number => {
-  if (minutes <= 20) {
+  if (minutes < 20) {
     return hours;
   }
   const nextHour = hours + 1;

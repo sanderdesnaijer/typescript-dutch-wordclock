@@ -3,15 +3,25 @@ function processString(inputString: string): string[] {
   return cleanedString.filter((letter) => letter !== "");
 }
 
+const getRandomLetter = (excludeLetters: string[]) => {
+  const ALPHABET = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
+  const regex = new RegExp(excludeLetters.join("|"), "gi");
+  const availableLetters = ALPHABET.replace(regex, "");
+  const randomIndex = Math.floor(Math.random() * availableLetters.length);
+  return availableLetters[randomIndex];
+};
+
+console.log("random letter", getRandomLetter(["Z", "S"]));
+
 export const wordGrid = processString(`
 HETAISKEENLM
 TWEEDRIEVIER
 VIJFZESZEVEN
 DERNEGEN-ENS
 ACHTVEERTIEN
-KWARTELFSUUR
-RTWAALFAVOOR
-OVERQHALFEEN
+KWARTELFVOOR
+RTWAALFASUUR
+OVERHALFQEEN
 TWEEDRIEVIER
 VIJFZESZEVEN
 ACHTNEGENELF
@@ -81,12 +91,12 @@ export const bottomNumbers = [
 
 const IT_IS = [0, 1, 2, 4, 5];
 const OVER = [92, 93, 94, 95];
-const BEFORE = [80, 81, 82, 83];
+const BEFORE = [60, 61, 62, 63];
 const QUARTER = [67, 68, 69, 70, 71];
-const HALF = [87, 88, 89, 90];
+const HALF = [88, 89, 90, 91];
 const SEPERATOR = [39];
 
-export const HOURS = [60, 61, 62];
+export const HOURS = [81, 82, 83];
 
 export type WordMap = Record<number, number[]>;
 export const wordMap: WordMap = {
