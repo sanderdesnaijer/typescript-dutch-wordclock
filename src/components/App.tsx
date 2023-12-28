@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { TimeButton } from "./TimeButton";
 import { TimeInput } from "./TimeInput";
-import { ClockGrid, ClockLetter } from "./ClockGrid";
+import { ClockGrid } from "./ClockGrid";
 import "./App.css";
 
 import {
@@ -13,7 +13,8 @@ import {
   topNumbers,
   wordGrid,
   wordMap,
-} from "./dutchClock12x12";
+} from "../dutchClock12x12";
+import { ClockLetter } from "./ClockLetter";
 
 const getNextHour = (minutes: number, hours: number): number => {
   if (minutes < 20) {
