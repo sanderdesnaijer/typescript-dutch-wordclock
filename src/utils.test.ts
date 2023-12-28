@@ -1,4 +1,4 @@
-import { getRandomLetter, processString } from "./dutchClock12x12";
+import { getRandomLetter, processString } from "./utils";
 
 test("it should remove newline characters and filter empty letters", () => {
   const inputString = "Hello\nWorld\n";
