@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "latin_modern_mono_light10Bd";
+  src: url("./assets/lmmonolt10-bold-webfont.woff2") format("woff2"),
+    url("./assets/lmmonolt10-bold-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,14 +19,6 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-@font-face {
-  font-family: "latin_modern_mono_light10Bd";
-  src: url("./assets/lmmonolt10-bold-webfont.woff2") format("woff2"),
-    url("./assets/lmmonolt10-bold-webfont.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
 }
 
 a {
