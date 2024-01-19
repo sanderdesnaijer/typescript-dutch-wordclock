@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import { HOURS, WordMap, bottomNumbers, topNumbers } from "../dutchClock12x12";
 import { ClockLetter } from "./ClockLetter";
 
@@ -21,6 +20,20 @@ const getLeds = (date: Date, wordMap: WordMap): number[] => {
   return [...wordMap[minutes], ...bottomNumbers[nextHour]];
 };
 
+const createGrid = (rowCount: number, columnCount: number): number[][] =>
+  Array.from({ length: rowCount }).reduce(
+    (list: number[][], _, rowIndex: number) => {
+      const columns = Array.from({ length: columnCount }).map(
+        (_, columnIndex) => columnIndex + rowIndex * columnCount
+      );
+      // reverse uneven columns so it mimics the led wire direction
+      const orderedColumns = rowIndex % 2 === 1 ? columns.reverse() : columns;
+      list.push(orderedColumns);
+      return list;
+    },
+    []
+  );
+
 export const ClockGrid: React.FC<{
   rowCount: number;
   columnCount: number;
@@ -36,24 +49,7 @@ export const ClockGrid: React.FC<{
   wordMap,
   wordGrid,
 }) => {
-  const grid = useMemo(
-    () =>
-      Array.from({ length: rowCount }).reduce(
-        (list: number[][], _, rowIndex: number) => {
-          const columns = Array.from({ length: columnCount }).map(
-            (_, columnIndex) => columnIndex + rowIndex * columnCount
-          );
-          // reverse uneven columns so it mimics the led wire direction
-          const orderedColumns =
-            rowIndex % 2 === 1 ? columns.reverse() : columns;
-          list.push(orderedColumns);
-          return list;
-        },
-        []
-      ),
-    [rowCount, columnCount]
-  );
-
+  const grid = createGrid(rowCount, columnCount);
   const currentActiveLeds = getLeds(time, wordMap);
 
   console.log(currentActiveLeds);
