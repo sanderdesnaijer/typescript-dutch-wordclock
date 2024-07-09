@@ -1,37 +1,38 @@
 import { processString } from "./utils";
 
 export const wordGrid = processString(`
-HETAISKEENLM
-TWEEDRIEVIER
-VIJFZESZEVEN
-DERNEGEN-ENS
-ACHTVEERTIEN
-KWARTELFVOOR
-RTWAALFASUUR
-OVERHALFQEEN
-TWEEDRIEVIER
-VIJFZESZEVEN
-ACHTNEGENELF
-TIENTWAALFRT`);
+HETAISKEENLMx
+TWEEDRIEVIERx
+VIJFZESZEVENx
+DERNEGENXENSX
+ACHTVEER-TIEN
+KWARTELFxxxxx
+RTWAALFAVOORx
+OVERXHALFQEEN
+TWEEDRIEVIERx
+VIJFZESZEVENx
+ACHTNEGENTIEN
+ELFTWAALFXUUR
+`);
 
-export const gridRows = 12;
-export const gridColumns = 12;
+export const gridRows = 13;
+export const gridColumns = 13;
 
 // top numbers
 const TOP_ONE = [7, 8, 9];
-const TOP_TWO = [20, 21, 22, 23];
-const TOP_THREE = [16, 17, 18, 19];
-const TOP_FOUR = [12, 13, 14, 15];
-const TOP_FIVE = [24, 25, 26, 27];
-const TOP_SIX = [28, 29, 30];
-const TOP_SEVEN = [31, 32, 33, 34, 35];
-const TOP_EIGHT = [48, 49, 50, 51];
-const TOP_NINE = [40, 41, 42, 43, 44];
-const TOP_TEN = [56, 57, 58, 59];
-const TOP_ELEVEN = [64, 65, 66];
-const TOP_TWELVE = [73, 74, 75, 76, 77, 78];
-const TOP_THIRTEEN = [45, 46, 47, ...TOP_TEN];
-const TOP_FOURTEEN = [52, 53, 54, 55, ...TOP_TEN];
+const TOP_TWO = [22, 23, 24, 25];
+const TOP_THREE = [18, 19, 20, 21];
+const TOP_FOUR = [14, 15, 16, 17];
+const TOP_FIVE = [26, 27, 28, 29];
+const TOP_SIX = [30, 31, 32];
+const TOP_SEVEN = [33, 34, 35, 36, 37];
+const TOP_EIGHT = [52, 53, 54, 55];
+const TOP_NINE = [44, 45, 46, 47, 48];
+const TOP_TEN = [61, 62, 63, 64];
+const TOP_ELEVEN = [70, 71, 72];
+const TOP_TWELVE = [79, 80, 81, 82, 83, 84];
+const TOP_THIRTEEN = [49, 50, 51, ...TOP_TEN];
+const TOP_FOURTEEN = [56, 57, 58, 59, ...TOP_TEN];
 export const topNumbers = [
   TOP_TWELVE,
   TOP_ONE,
@@ -48,18 +49,18 @@ export const topNumbers = [
 ];
 
 // bottom nummbers
-const BOTTOM_ONE = [84, 85, 86];
-const BOTTOM_TWO = [96, 97, 98, 99];
-const BOTTOM_THREE = [100, 101, 102, 103];
-const BOTTOM_FOUR = [104, 105, 106, 107];
-const BOTTOM_VIVE = [116, 117, 118, 119];
-const BOTTOM_SIX = [113, 114, 115];
-const BOTTOM_SEVEN = [108, 109, 110, 111, 112];
-const BOTTOM_EIGHT = [120, 121, 122, 123];
-const BOTTOM_NINE = [124, 125, 126, 127, 128];
-const BOTTOM_TEN = [140, 141, 142, 143];
-const BOTTOM_ELEVEN = [129, 130, 131];
-const BOTTOM_TWELVE = [134, 135, 136, 137, 138, 139];
+const BOTTOM_ONE = [91, 92, 93];
+const BOTTOM_TWO = [104, 105, 106, 107];
+const BOTTOM_THREE = [108, 109, 110, 111];
+const BOTTOM_FOUR = [112, 113, 114, 115];
+const BOTTOM_VIVE = [126, 127, 128, 129];
+const BOTTOM_SIX = [123, 124, 125];
+const BOTTOM_SEVEN = [118, 119, 120, 121, 122];
+const BOTTOM_EIGHT = [130, 131, 132, 133];
+const BOTTOM_NINE = [134, 135, 136, 137, 138];
+const BOTTOM_TEN = [139, 140, 141, 142];
+const BOTTOM_ELEVEN = [153, 154, 155];
+const BOTTOM_TWELVE = [147, 148, 149, 150, 151, 152];
 
 export const bottomNumbers = [
   BOTTOM_TWELVE,
@@ -77,13 +78,13 @@ export const bottomNumbers = [
 ];
 
 const IT_IS = [0, 1, 2, 4, 5];
-const OVER = [92, 93, 94, 95];
-const BEFORE = [60, 61, 62, 63];
-const QUARTER = [67, 68, 69, 70, 71];
-const HALF = [88, 89, 90, 91];
-const SEPERATOR = [39];
+const OVER = [100, 101, 102, 103];
+const BEFORE = [86, 87, 88, 89];
+const QUARTER = [73, 74, 75, 76, 77];
+const HALF = [95, 96, 97, 98];
+const SEPERATOR = [60];
 
-export const HOURS = [81, 82, 83];
+export const HOURS = [143, 144, 145];
 
 export type WordMap = Record<number, number[]>;
 export const wordMap: WordMap = {
@@ -105,7 +106,7 @@ export const wordMap: WordMap = {
   15: [...IT_IS, ...QUARTER, ...OVER],
   16: [...IT_IS, ...TOP_SIX, ...SEPERATOR, ...TOP_TEN, ...OVER],
   17: [...IT_IS, ...TOP_SEVEN, ...SEPERATOR, ...TOP_TEN, ...OVER],
-  18: [...IT_IS, ...TOP_EIGHT, ...TOP_TEN, ...OVER],
+  18: [...IT_IS, ...TOP_EIGHT, ...SEPERATOR, ...TOP_TEN, ...OVER],
   19: [...IT_IS, ...TOP_NINE, ...SEPERATOR, ...TOP_TEN, ...OVER],
   20: [...IT_IS, ...TOP_TEN, ...BEFORE, ...HALF],
   21: [...IT_IS, ...TOP_NINE, ...BEFORE, ...HALF],
@@ -129,11 +130,11 @@ export const wordMap: WordMap = {
   39: [...IT_IS, ...TOP_NINE, ...OVER, ...HALF],
   40: [...IT_IS, ...TOP_TEN, ...OVER, ...HALF],
   41: [...IT_IS, ...TOP_NINE, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
-  42: [...IT_IS, ...TOP_EIGHT, ...TOP_TEN, ...BEFORE],
+  42: [...IT_IS, ...TOP_EIGHT, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
   43: [...IT_IS, ...TOP_SEVEN, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
   44: [...IT_IS, ...TOP_SIX, ...SEPERATOR, ...TOP_TEN, ...BEFORE],
   45: [...IT_IS, ...QUARTER, ...BEFORE],
-  46: [...IT_IS, ...TOP_FOURTEEN, ...BEFORE],
+  46: [...IT_IS, ...TOP_FOURTEEN, ...SEPERATOR, ...BEFORE],
   47: [...IT_IS, ...TOP_THIRTEEN, ...SEPERATOR, ...BEFORE],
   48: [...IT_IS, ...TOP_TWELVE, ...BEFORE],
   49: [...IT_IS, ...TOP_ELEVEN, ...BEFORE],
