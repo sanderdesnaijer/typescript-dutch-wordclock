@@ -52,8 +52,6 @@ export const ClockGrid: React.FC<{
   const grid = createGrid(rowCount, columnCount);
   const currentActiveLeds = getLeds(time, wordMap);
 
-  console.log(currentActiveLeds);
-
   return (
     <div className="clock">
       {grid.map((row, rowIndex) => (

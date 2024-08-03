@@ -1,21 +1,21 @@
 import { processString } from "./utils";
 
 export const wordGrid = processString(`
-HETAISKEENLMx
-TWEEDRIEVIERx
-VIJFZESZEVENx
+HETAISKEENLMX
+TWEEDRIEVIERD
+VIJFZESZEVENG
 DERNEGENXENSX
 ACHTVEER-TIEN
-KWARTELFxxxxx
-RTWAALFAVOORx
+KWARTELFXSAND
+RTWAALFAVOORP
 OVERXHALFQEEN
-TWEEDRIEVIERx
-VIJFZESZEVENx
+TWEEDRIEVIERQ
+VIJFZESZEVENL
 ACHTNEGENTIEN
 ELFTWAALFXUUR
 `);
 
-export const gridRows = 13;
+export const gridRows = 12;
 export const gridColumns = 13;
 
 // top numbers
@@ -102,7 +102,7 @@ export const wordMap: WordMap = {
   11: [...IT_IS, ...TOP_ELEVEN, ...OVER],
   12: [...IT_IS, ...TOP_TWELVE, ...OVER],
   13: [...IT_IS, ...TOP_THIRTEEN, ...SEPERATOR, ...OVER],
-  14: [...IT_IS, ...TOP_FOURTEEN, ...OVER],
+  14: [...IT_IS, ...TOP_FOURTEEN, ...SEPERATOR, ...OVER],
   15: [...IT_IS, ...QUARTER, ...OVER],
   16: [...IT_IS, ...TOP_SIX, ...SEPERATOR, ...TOP_TEN, ...OVER],
   17: [...IT_IS, ...TOP_SEVEN, ...SEPERATOR, ...TOP_TEN, ...OVER],
@@ -149,3 +149,21 @@ export const wordMap: WordMap = {
   58: [...IT_IS, ...TOP_TWO, ...BEFORE],
   59: [...IT_IS, ...TOP_ONE, ...BEFORE],
 };
+
+const minutesInHourWithEmptyValues: number[][] = [];
+const maxColumnLength = 19;
+Object.keys(wordMap).forEach((element, index) => {
+  minutesInHourWithEmptyValues[index] = [];
+  const list = wordMap[parseInt(element, 0)];
+  const myList = [...list];
+
+  if (list.length < maxColumnLength) {
+    for (var i = 0; i < maxColumnLength - list.length; i++) {
+      myList.push(-1);
+    }
+  }
+
+  minutesInHourWithEmptyValues[index] = myList;
+});
+
+// console.log("list with empty values", minutesInHourWithEmptyValues);
