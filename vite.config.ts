@@ -8,7 +8,5 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
   },
-  build: {
-    outDir: "./docs",
-  },
+  base: "/typescript-dutch-wordclock/",
 });

@@ -5,3 +5,6 @@ There are a lot of wordclocks available online, but not so much with minute prec
 - checkout the branch
 - `npm ci`
 - `npm run dev`
+
+## To publish
+- `npm run deploy`
