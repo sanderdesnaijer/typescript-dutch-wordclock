@@ -1,13 +1,31 @@
-# React + Typescript POC dutch wordclock
-There are a lot of wordclocks available online, but not so much with minute precision. This is a dutch version of the wordclock with minute precision, to test out the code which we can later transfer to arduino. 
+# TypeScript Dutch Word Clock
 
-## Demo
-visit https://sanderdesnaijer.github.io/typescript-dutch-wordclock/ 
+Browser-based prototype of a Dutch word clock with minute precision. Built with React and TypeScript as a testbed before transferring the logic to Arduino hardware.
 
-## To start
-- checkout the branch
-- `npm ci`
-- `npm run dev`
+- **Live demo:** [sanderdesnaijer.github.io/typescript-dutch-wordclock](https://sanderdesnaijer.github.io/typescript-dutch-wordclock/)
+- **Blog post:** [Building a 3D-Printed Arduino Word Clock](https://sanderdesnaijer.com/blog/3d-printed-arduino-word-clock)
+- **Project:** [sanderdesnaijer.com/projects/arduino-3d-printed-dutch-word-clock](https://sanderdesnaijer.com/projects/arduino-3d-printed-dutch-word-clock)
+- **Arduino version:** [arduino-dutch-wordclock](https://github.com/sanderdesnaijer/arduino-dutch-wordclock) / the final hardware implementation
 
-## To publish
-- `npm run deploy`
+## About
+
+Most word clocks you find online only show time in five-minute increments. This one displays Dutch time phrases with minute precision. The browser version was used to develop and verify the letter grid layout and word mapping logic before porting everything to the Arduino.
+
+## Getting started
+
+```bash
+npm ci
+npm run dev
+```
+
+## Deploy
+
+```bash
+npm run deploy
+```
+
+## Related
+
+- [sanderdesnaijer.com](https://sanderdesnaijer.com) / portfolio and blog
+- [Building a 3D-Printed Arduino Word Clock](https://sanderdesnaijer.com/blog/3d-printed-arduino-word-clock) / full build guide
+- [arduino-dutch-wordclock](https://github.com/sanderdesnaijer/arduino-dutch-wordclock) / Arduino firmware for the physical clock
